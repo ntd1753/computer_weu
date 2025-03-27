@@ -1,0 +1,41 @@
+services:
+    app:
+        build:
+            args:
+                user: 'computer_shop_weu'
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: computer_shop_weu
+        container_name: computer_shop_weu-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www/:rw
+        networks:
+            - computer_shop_weu
+
+    nginx:
+        image: nginx:alpine
+        container_name: computer_shop_weu-nginx
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www/
+            - ./docker-compose/nginx:/etc/nginx/conf.d:ro
+        depends_on:
+            - app
+        networks:
+            - computer_shop_weu
+
+    redis:
+        image: 'bitnami/redis:latest'
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        networks:
+            - computer_shop_weu
+
+networks:
+    computer_shop_weu:
+        driver: bridge

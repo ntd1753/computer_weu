@@ -171,7 +171,7 @@
         </div>
     </div>
 </header>
-<div class="container mx-auto xl:px-36 text-lg px-1" id="categoryDetail">
+<div class="container mx-auto xl:px-36 text-lg px-1 hidden" id="categoryDetail">
     <div class="w-full grid grid-cols-1 md:grid-cols-4 items-center gap-2 py-2" id="main-category-list">
         <!-- sidebar -->
         <div class="col-span-1 bg-white rounded-lg shadow p-4 h-full hidden md:block">

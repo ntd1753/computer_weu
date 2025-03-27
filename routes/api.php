@@ -18,3 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/category', 'App\Http\Controllers\Api\HomeController@category')->name('api.category.get');
+Route::get('/home-products', [\App\Http\Controllers\Api\HomeController::class, 'getListHomeProduct'])->name('api.home.product.get');

@@ -17,7 +17,7 @@
         }
 
     </style>
-
+@yield('styles')
     <body>
         <div id="main">
             @include('partials.header')
@@ -26,6 +26,7 @@
             </div>
             @include('partials.footer')
             @include('partials.bodyJS')
+            @yield('scripts')
         </div>
     </body>
 </html>

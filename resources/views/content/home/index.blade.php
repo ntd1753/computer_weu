@@ -1,42 +1,110 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mx-auto xl:px-36 text-lg mt-4 mb-2 md:mt-8 md:mb-4">
-        <div class="bg-white px-2 py-6 md:p-6 rounded-lg shadow">
-            <div class="md:flex justify-between items-center">
-                <a href="https://trandienpc.com/pc-thiet-ke-do-hoa-3d">
-                    <h2 class="pb-3 md:py-0 flex justify-center text-2xl md:text-3xl font-bold text-main-color-dark">PC Đồ Họa, Render 3D</h2>
-                </a>
+    <div id="product-content">
 
-                <div class="flex justify-center md:justify-end items-center gap-2 text-sub-main-color">
-                    <a href="https://trandienpc.com/3d-lumion">
-                        <button type="button" class="border border-sub-main-color rounded-full px-2 md:py-1 md:px-4 bg-white
-                                hover:text-main-color-dark hover:border-main-color-dark text-sm md:text-base">
-                            TDPC 3D Lumion
-                        </button>
-                    </a>
-                    <a href="https://trandienpc.com/3d">
-                        <button type="button" class="border border-sub-main-color rounded-full px-2 md:py-1 md:px-4 bg-white
-                                hover:text-main-color-dark hover:border-main-color-dark text-sm md:text-base">
-                            TDPC 3D
-                        </button>
-                    </a>
-                    <a href="https://trandienpc.com/3d-render">
-                        <button type="button" class="border border-sub-main-color rounded-full px-2 md:py-1 md:px-4 bg-white
-                                hover:text-main-color-dark hover:border-main-color-dark text-sm md:text-base">
-                            TDPC 3D Render
-                        </button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Products Slider -->
-            <div class="">
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-center mt-4">
-                    @for($i =0; $i<8; $i++)
-                        @include('components.cards.productCard')
-                    @endfor
-                </div>
-            </div>
-        </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $.ajax({
+                url: '{{route('api.home.product.get')}}',
+                method: 'GET',
+                success: function (response) {
+                    let data = response.data;
+                    let beginRowProduct = `<div class="container mx-auto xl:px-36 text-lg mt-4 mb-2 md:mt-8 md:mb-4">
+                            <div class="bg-white px-2 py-6 md:p-6 rounded-lg shadow-xl">`;
+                    let endRowProduct = `</div></div></div></div>`;
+                    console.log(data);
+                    $.each(data, function (index, data){
+                        if (data.products.length > 0) {
+                            let html = '';
+                            html += beginRowProduct;
+                            html += `<div class="md:flex justify-between items-center">
+                                    <a href="#">
+                                        <h2 class="pb-3 md:py-0 flex justify-center text-2xl md:text-3xl font-bold text-main-color-dark">${data.category.name}</h2>
+                                    </a>
+                                    <div class="flex justify-center md:justify-end items-center gap-2 text-sub-main-color">
+                                        <a href="#">
+                                            <button type="button" class="border border-sub-main-color rounded-full px-2 md:py-1 md:px-4 bg-white
+                                                    hover:text-main-color-dark hover:border-main-color-dark text-sm md:text-base">
+                                                Xem Thêm
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                            `;
+                            html += `<div class=""> <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-center mt-4">`;
+                            $.each(data.products, function (index, product){
+                                let cartButton = `
+                                 <button class="text-white bg-sub-main-color px-2 py-1 text-base rounded-full border border-sub-main-color
+                                        hover:bg-white hover:text-[#2c3e50]" onclick="addItemToCart(${product.id})">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                `;
+
+                                let discount = '';
+                                let priceHtml = `<h5>${product.price} VND</h5>`;
+                                let PriceAfterDiscount = product.price;
+                                if(product.discount_type != null && product.discount_value != null){
+                                    let discontPercent = 0;
+                                    if(product.discount_type === {{\App\Models\Product::DISCOUNT_VND}}){
+                                        priceAfterDiscount = product.price - product.discount_value;
+                                        discountPercent = (product.discount_value / product.price) * 100;
+                                    }else {
+                                        priceAfterDiscount = product.price - (product.price * product.discount_value / 100);
+                                        discountPrercent = product.discount_value;
+                                    }
+                                    discount += ` <div class="absolute bg-sub-main-color font-bold text-white text-xs p-1 top-0 right-0">Sale
+                                ${discontPercent}</div>
+                            </div>`;
+                                    priceHtml = `
+                                <h5 style="text-decoration: line-through;" class="text-gray-500 text-xs">${product.price} VND
+                                        </h5>
+                                        <h5>${priceAfterDiscount} VND</h5>
+                                `
+
+                                }
+                                let previewImage =  JSON.parse(product.images)[0] || null;
+                                html += `<div class="col-span-1 p-2 shadow rounded-lg h-full">`;
+                                let imgPreview = `
+                                    <div class="border border-blue-700 relative">
+                                        <a href="#">
+                                            <img src="${previewImage}" alt=""
+                                                 class="aspect-square object-cover">
+                                        </a>
+                                    </div>`;
+                                html += imgPreview + discount;
+                                let productName = `
+                                    <div class="py-2">
+                                        <a href="#">
+                                            <h4  data-tooltip-target="product-name-${product.id}" data-tooltip-trigger="hover" class="text-sm md:text-base font-bold text-main-color-dark text-center">${product.name}</h4>
+                                            <div id="product-name-${product.id}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
+                                                Tooltip content
+                                                <div class="tooltip-arrow" data-popper-arrow></div>
+                                            </div>
+                                        </a>
+                                    </div>`;
+                                html += productName;
+                                let productPriceCard = `
+                                <div class="flex justify-between items-center mt-1 px-2 py-1">
+                                    <div class="text-sm md:text-base font-bold text-sub-main-color text-center">
+                                        ${priceHtml}
+                                    </div>
+                                    ${cartButton}
+                                </div>
+                                `;
+                                html += productPriceCard;
+                                html += `</div>`;
+                            });
+                            html += endRowProduct;
+                            $('#product-content').append(html);
+
+                        }
+
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

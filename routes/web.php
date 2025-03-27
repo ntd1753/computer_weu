@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('content.home.index');
 });
+Route::prefix('product')->group(function(){
+        Route::get('/detail', function (){
+            return view('content.product.detail');
+        })->name('product.detail');
+});

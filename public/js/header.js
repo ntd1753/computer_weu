@@ -1,12 +1,5 @@
     // remove the hidden class from the categoryDetail when loaded  page
     // if screen size is less than 768px, show the categoryDetail
-    document.addEventListener('DOMContentLoaded', function () {
-    if (window.innerWidth > 768) {
-    let menu = document.getElementById("categoryDetail");
-    menu.classList.remove('hidden');
-}
-
-});
     function open_menu() {
     let menu = document.getElementById("categoryDetail");
     if (menu.classList.contains('hidden')) menu.classList.remove('hidden');
