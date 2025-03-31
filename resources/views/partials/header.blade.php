@@ -17,18 +17,61 @@
               </span>
                     </a>
                 </div>
+                @guest()
                 <div class="">
                     <nav class="flex text-sm md:text-base font-bold gap-2 justify-center items-center">
-                        <a href="#" class="flex justify-start items-center gap-2">
+                        <a href="{{route('auth.register')}}" class="flex justify-start items-center gap-2">
                             <i class="fa-solid fa-user-plus"></i>
                             <label class="hidden md:block">Đăng ký</label>
                         </a> |
-                        <a href="#" class="flex justify-start items-center gap-2">
+                        <a href="{{route('auth.login')}}" class="flex justify-start items-center gap-2">
                             <i class="fa-solid fa-right-to-bracket"></i>
                             <label class="hidden md:block">Đăng nhập</label>
                         </a>
                     </nav>
                 </div>
+                @else
+                    <div class="">
+                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm pe-1 font-medium text-white rounded-full hover:text-orange-500  md:me-0 focus:ring-0" type="button">
+                            <i class="fa-solid fa-user-astronaut text-base md:text-lg mr-2"></i>
+                            <span class="font-bold text-sm md:text-base">{{Auth::user()->name}}</span>
+                            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"></path>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-36 md:w-44">
+                            <div class="p-2 md:px-4 md:py-3 text-sm text-black ">
+                                <div class="font-bold text-center">Trang cá nhân</div>
+                                <div class="truncate text-center">nhocway996@gmail.com</div>
+                            </div>
+                            <ul class="text-sm text-black" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                                <li>
+                                    <a href="{{route('home')}}" class="block px-2 py-1 md:px-4 md:py-2 hover:bg-blue-100 hover:text-sub-main-color">Trang chủ
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-2 py-1 md:px-4 md:py-2 hover:bg-blue-100 hover:text-main-color-dark">
+                                        Thông tin cá nhân
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-2 py-1 md:px-4 md:py-2 hover:bg-blue-100 hover:text-main-color-dark">
+                                        Thông tin đơn hàng
+                                    </a>
+                                </li>
+                            </ul>
+                            <div>
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-2 py-1 md:px-4 md:py-2 text-sm text-black hover:bg-blue-100 hover:text-main-color-dark rounded-b-lg">
+                                    Đăng xuất
+                                </a>
+                                <form id="logout-form" action="{{route('auth.logout')}}" method="POST" class="d-none m-0 p-0">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endguest
             </div>
         </div>
     </div>
@@ -40,7 +83,7 @@
             <div class="flex justify-between gap-1 md:gap-4 items-center ">
                 <!-- logo -->
                 <div class="">
-                    <a href="#">
+                    <a href="{{route('home')}}">
                         <div class="flex justify-start items-center w-full h-full">
                             <div class="p-2">
                                 <img src="http://computer-cms.dnth.io.vn/build/images/logo-dark.png" alt="" class="w-full h-12">

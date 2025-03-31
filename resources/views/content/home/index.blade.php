@@ -7,6 +7,12 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            if (window.innerWidth > 768) {
+                let menu = document.getElementById("categoryDetail");
+                menu.classList.remove('hidden');
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function () {
             $.ajax({
                 url: '{{route('api.home.product.get')}}',
                 method: 'GET',
@@ -32,52 +38,50 @@
                                             </button>
                                         </a>
                                     </div>
-                                </div>
-                                            `;
+                                </div>`;
                             html += `<div class=""> <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-center mt-4">`;
                             $.each(data.products, function (index, product){
-                                let cartButton = `
-                                 <button class="text-white bg-sub-main-color px-2 py-1 text-base rounded-full border border-sub-main-color
+                                let cartButton = `<button class="text-white bg-sub-main-color px-2 py-1 text-base rounded-full border border-sub-main-color
                                         hover:bg-white hover:text-[#2c3e50]" onclick="addItemToCart(${product.id})">
                                             <i class="fa-solid fa-cart-shopping"></i>
-                                        </button>
-                                `;
+                                        </button>`;
 
                                 let discount = '';
-                                let priceHtml = `<h5>${product.price} VND</h5>`;
+                                let priceHtml = `<h5>${formatCurrency(product.price)} VND</h5>`;
                                 let PriceAfterDiscount = product.price;
+
                                 if(product.discount_type != null && product.discount_value != null){
                                     let discontPercent = 0;
+
                                     if(product.discount_type === {{\App\Models\Product::DISCOUNT_VND}}){
                                         priceAfterDiscount = product.price - product.discount_value;
                                         discountPercent = (product.discount_value / product.price) * 100;
-                                    }else {
-                                        priceAfterDiscount = product.price - (product.price * product.discount_value / 100);
-                                        discountPrercent = product.discount_value;
+                                        discountPercent = discountPercent.toFixed(0);
                                     }
-                                    discount += ` <div class="absolute bg-sub-main-color font-bold text-white text-xs p-1 top-0 right-0">Sale
-                                ${discontPercent}</div>
-                            </div>`;
-                                    priceHtml = `
-                                <h5 style="text-decoration: line-through;" class="text-gray-500 text-xs">${product.price} VND
-                                        </h5>
-                                        <h5>${priceAfterDiscount} VND</h5>
-                                `
+                                    if(product.discount_type === {{\App\Models\Product::DISCOUNT_PERCENT}}) {
+                                        priceAfterDiscount = product.price - (product.price * product.discount_value / 100);
+                                        discountPercent = product.discount_value.toFixed(0);
+                                    }
+                                    priceAfterDiscount = formatCurrency(priceAfterDiscount);
+                                    discount += ` <div class="absolute bg-sub-main-color font-bold text-white text-xs p-1 top-0 right-0">Sale ${discountPercent}%</div>`;
+                                    priceHtml = `<h5 style="text-decoration: line-through;" class="text-gray-500 text-xs">${formatCurrency(product.price)} VND</h5>
+                                                    <h5>${priceAfterDiscount} VND</h5>`
 
                                 }
+                                let routeProductDetail = "{{ route('product.detail', ['slug' => '__SLUG__']) }}";
                                 let previewImage =  JSON.parse(product.images)[0] || null;
                                 html += `<div class="col-span-1 p-2 shadow rounded-lg h-full">`;
-                                let imgPreview = `
-                                    <div class="border border-blue-700 relative">
-                                        <a href="#">
+                                html += `<div class="border border-blue-700 relative">`;
+                                let imgPreview = `<div class="border border-blue-700 relative">
+                                        <a href="${routeProductDetail.replace('__SLUG__', product.slug)}">
                                             <img src="${previewImage}" alt=""
                                                  class="aspect-square object-cover">
                                         </a>
                                     </div>`;
-                                html += imgPreview + discount;
+                                html += imgPreview+discount+`</div>`;
                                 let productName = `
                                     <div class="py-2">
-                                        <a href="#">
+                                        <a href="${routeProductDetail.replace('__SLUG__', product.slug)}">
                                             <h4  data-tooltip-target="product-name-${product.id}" data-tooltip-trigger="hover" class="text-sm md:text-base font-bold text-main-color-dark text-center">${product.name}</h4>
                                             <div id="product-name-${product.id}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
                                                 Tooltip content

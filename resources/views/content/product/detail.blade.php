@@ -5,7 +5,7 @@
             <nav class="flex p-2 md:p-4 my-1 text-xs md:text-base font-medium text-gray-400  bg-white rounded-lg shadow" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <a href="https://trandienpc.com" class="inline-flex items-center text-main-color-dark hover:text-sub-main-color">
+                        <a href="{{route('home')}}" class="inline-flex items-center text-main-color-dark hover:text-sub-main-color">
                             <svg class="w-4 h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"></path>
                             </svg>
@@ -17,7 +17,7 @@
                             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"></path>
                             </svg>
-                            <a href="https://trandienpc.com/pc-thiet-ke-do-hoa-3d" class="ms-1 hover:text-main-color-dark">PC Đồ Họa, Render 3D</a>
+                            <a href="#" class="ms-1 hover:text-main-color-dark">{{$product->category->parent->name}}</a>
                         </div>
                     </li>
                     <li aria-current="page">
@@ -25,14 +25,14 @@
                             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"></path>
                             </svg>
-                            <a href="https://trandienpc.com/3d" class="ms-1 hover:text-main-color-dark">TDPC 3D</a>
+                            <a href="#" class="ms-1 hover:text-main-color-dark">{{$product->category->name}}</a>
                         </div>
                     </li>
                 </ol>
             </nav>
             <div class="bg-white p-4 rounded-lg shadow-xl">
-                <h1 class="px-2 font-bold text-lg md:text-2xl border-b border-gray-300 pb-2 text-main-color-dark">TDPC CORE I9-12900K | 32GB| RTX-4060TI-16GB (D02)</h1>
-                <div class="md:grid md:grid-cols-4 mt-4 gap-4">
+                <h1 class="px-2 font-bold text-lg md:text-2xl border-b border-gray-300 pb-2 text-main-color-dark">{{$product->name}}</h1>
+                <div class="lg:grid lg:grid-cols-4 mt-4 gap-4">
                     <div class="col-span-3">
                         <div class="md:grid md:grid-cols-5 gap-4">
                             <!-- Images -->
@@ -40,23 +40,24 @@
                                 <div class="w-full">
                                     <div id="indicators-carousel" class="relative w-full" data-carousel="static">
                                         <!-- Carousel wrapper -->
-                                        <div class="relative overflow-hidden w-[300px] h-[300px] lg:w-[290px] xl:w-[300px]">
+                                        <div class="relative overflow-hidden" style="height: 300px; width: 285px;" >
                                             <!-- Item 1 -->
-                                            <div class="duration-700 ease-in-out absolute inset-0 transition-transform transform z-10 translate-x-full z-20" data-carousel-item="active">
-                                                <img src="https://trandienpc.com/storage/product/PC-do-hoa/pc1-I7-13700K/1.png" class="absolute block -translate-x-1/2 -translate-y-1/2">
-                                            </div>
-                                            <div class="duration-700 ease-in-out absolute inset-0 transition-transform transform translate-x-0 z-30" data-carousel-item="active">
-                                                <img src="https://trandienpc.com/storage/product/PC-do-hoa/pc1-I7-13700K/1.png" class="absolute block -translate-x-1/2 -translate-y-1/2">
-                                            </div>
+                                            @php
+                                                $images = json_decode($product->images,true);
+                                            @endphp
+                                            @foreach($images as $image)
+                                                <div class="duration-700 ease-in-out absolute inset-0 transition-transform transform z-10 translate-x-full z-20" data-carousel-item="active">
+                                                    <img src="{{$image}}" class="" alt="...">
+                                                </div>
+                                            @endforeach
                                         </div>
                                         <!-- Slider indicators -->
                                         <div class="grid grid-cols-5 gap-2 mt-4">
-                                            <button type="button" aria-current="false" aria-label="Slide 0" data-carousel-slide-to="0" class="shadow border border-gray-300 rounded-lg hover:border-blue-500 bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800">
-                                                <img src="https://trandienpc.com/storage/product/PC-do-hoa/pc1-I7-13700K/1.png" class="w-full rounded-lg " alt="product-image">
-                                            </button>
-                                            <button type="button" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="1" class="shadow border border-gray-300 rounded-lg hover:border-blue-500 bg-white dark:bg-gray-800">
-                                                <img src="https://trandienpc.com/storage/product/PC-do-hoa/pc1-I7-13700K/1.png" class="w-full rounded-lg " alt="product-image">
-                                            </button>
+                                            @foreach($images as $image)
+                                                <button type="button" aria-current="false" aria-label="Slide 0" data-carousel-slide-to="0" class="shadow border border-gray-300 rounded-lg hover:border-blue-500 bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800">
+                                                    <img src="{{$image}}" class="w-full rounded-lg " alt="product-image">
+                                                </button>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -80,9 +81,9 @@
                                 </div>
 
                                 <div class="flex justify-start items-center text-sm md:text-base text black gap-4">
-                                    <div class="flex justify-start gap-1 items-center text-yellow-400">
+                                    <div class="flex justify-start gap-1 items-center ">
                                         <p class="font-semibold text-blue-600">Đánh giá:</p>
-                                        <i class="fa-solid fa-star text-sm "></i>
+                                        <i class="fa-solid fa-star text-sm text-orange-400"></i>
                                         <i class="fa-solid fa-star text-sm text-orange-400"></i>
                                         <i class="fa-solid fa-star text-sm text-orange-400"></i>
                                         <i class="fa-solid fa-star text-sm text-orange-400"></i>
@@ -91,38 +92,60 @@
                                 </div>
                                 <div class="w-full px-4 py-2 rounded-lg border border-dashed border-red-500 mt-4 flex justify-between items-center">
                                     <h2 class="text-font text-blue-600 text-lg md:text-3xl font-bold relative">
-                                        <div style="text-decoration: line-through;" class="text-gray-500 text-xs">40,290,000 VNĐ</div>
-                                        <div class="flex justify-start items-center gap-2">
-                                            <p>37,090,000 VNĐ</p>
-                                            <p class="bg-sub-main-color font-bold text-white text-xs py-0 md:py-1 px-1 md:px-4 rounded">
-                                                Sale 8 %
-                                            </p>
-                                        </div>
+                                        @if($product->discount_type && $product->discount_value)
+                                            <div style="text-decoration: line-through;" class="text-gray-500 text-xs">{{number_format($product->price,0, ',', '.')}} VNĐ</div>
+                                            <div class="flex justify-start items-center gap-2">
+                                                @if($product->discount_type == \App\Models\Product::DISCOUNT_VND)
+                                                    <p>{{number_format($product->price - $product->discount_value,0, ',', '.')}} VNĐ</p>
+                                                    <p class="bg-red-600 font-bold text-white text-xs py-0 md:py-1 px-1 md:px-4 rounded">
+                                                        Sale {{round($product->discount_value/$product->price)}} %
+                                                    </p>
+                                                @endif
+                                                <p>{{number_format($product->price*(1-$product->discount_value*0.01),0, ',', '.')}} VNĐ</p>
+                                                    <p class="bg-red-600 font-bold text-white text-xs py-0 md:py-1 px-1 md:px-4 rounded">
+                                                        Sale {{round($product->discount_value)}} %
+                                                    </p>
+                                            </div>
+                                        @else
+                                            <div class="flex justify-start items-center gap-2">
+                                                <p>{{number_format($product->price,0, ',', '.')}} VNĐ</p>
+                                            </div>
+                                        @endif
                                     </h2>
-                                    <label class="text-white text-sm bg-red-600 rounded-lg py-1 px-2 mt-1">Có bảo hành</label>
                                 </div>
                                 <div class="w-full mt-2 md:mt-8">
-                                    <button class="bg-[#FA5252] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart(1478,true)">
-                                        <p class="font-bold text-lg md:text-2xl">MUA NGAY</p>
-                                        <p class="text-sm mt-[-5px]">Giao hàng tận nơi nhanh chóng</p>
-                                    </button>
-                                    <div class="grid grid-cols-2 gap-2 md:gap-4 items-center mt-2 md:mt-4">
-                                        <button class="bg-[#FF8125] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart(1478)">
-                                            <p class="font-bold text-base md:text-xl">THÊM VÀO GIỎ HÀNG</p>
-                                            <p class="text-sm mt-[-5px]"> Để chọn tiếp</p>
-                                        </button>
-                                        <a href="https://trandienpc.com/policy/huong-dan-tra-gop">
-                                            <button class="bg-[#1988EC] rounded-xl py-2 md:py-4 w-full text-white h-full">
-                                                <p class="font-bold text-base md:text-xl">MUA TRẢ GÓP</p>
-                                                <p class="text-sm mt-[-5px]">Thủ tục đơn giản</p>
+                                    <div class="grid grid-cols-3 gap-2 md:gap-4 items-center mt-2">
+                                        <div class="relative flex items-center max-w-[8rem]">
+                                            <button type="button" id="decrement-button" data-input-counter-decrement="quantity-input" class="bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-s-lg px-3 h-11 ">
+                                                <svg class="w-3 h-3 text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                                </svg>
                                             </button>
-                                        </a>
+                                            <input type="text" id="quantity-input" name="quantity" data-input-counter aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm block w-full py-2.5 " value="1" aria-valuemax="80" required />
+                                            <button type="button" id="increment-button" data-input-counter-increment="quantity-input" class="bg-gray-100  hover:bg-gray-200 border border-gray-300 rounded-e-lg px-3 h-11 ">
+                                                <svg class="w-3 h-3 text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="col-span-2">
+                                            <button class="bg-[#FF8125] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart(1478)">
+                                                <p class="font-bold text-base md:text-lg">THÊM VÀO GIỎ HÀNG</p>
+                                                <p class="text-sm mt-[-5px]">Để chọn tiếp</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="md:mt-4">
+                                        <button class="bg-[#FA5252] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart(1478,true)">
+                                            <p class="font-bold text-lg md:text-2xl">MUA NGAY</p>
+                                            <p class="text-sm mt-[-5px]">Giao hàng tận nơi nhanh chóng</p>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-span-1 mt-4">
+                    <div class="col-span-1 mt-4 sm:hidden lg:block">
                         <!-- Adds -->
                         <div class="border border-[#27ae60] rounded-xl shadow text-base">
                             <h4 class="font-semibold text-white py-2 px-4 bg-main-color-dark  rounded-t-xl">Địa chỉ đặt hàng</h4>
@@ -165,7 +188,116 @@
                     </div>
                 </div>
             </div>
+            <div class="bg-white p-4 mt-4 rounded-lg shadow-lg">
+                <div class="mt-4">
+                    <div class="md:grid grid-cols-3 gap-4">
+                        <div class="col-span-2">
+                            <div class="col-span-2">
+                                <h2 class="font-bold text-xl border-b border-gray-300 pb-2">Đánh giá chi tiết Cấu Hình PC Gigabyte Z690 Aorus Pro DDR4: Intel Core i9 12900K và ASUS RTX 4060 Ti OC Edition</h2>
+                                <div class="text-base border-b border-dashed border-gray-300">
+                                    {!! $product->post->content !!}
+                                </div>
+                            </div>
+                            <div class="mt-4 hidden md:block">
+                                <h2 class="font-bold text-xl border-b border-gray-300 pb-2">Đánh giá &amp;&amp; nhận xét</h2>
+                                <form class="mt-4 text-base text-gray-400">
+                                    <input type="hidden" name="_token" value="tSNsUi9eJp8F6XrJ23fhLCPWBrc5QQ8c2xqp38w7" autocomplete="off">                               <label>
+                                        <textarea class="w-full border border-gray-300 rounded-xl p-4 "> Mời bạn để lại câu hỏi, chúng tôi sẽ tư vấn cho bạn</textarea>
+                                    </label>
+                                    <div class="grid grid-cols-2 gap-4 mt-2">
+                                        <div class="col-span-1">
+                                            <label>
+                                                <input type="text" class="border border-gray-300 rounded-xl py-2 px-4 w-full" placeholder="Họ và tên">
+                                            </label>
+                                        </div>
+                                        <div class="col-span-1">
+                                            <label>
+                                                <input type="text" class="border border-gray-300 rounded-xl py-2 px-4 w-full" placeholder="Số điện thoại">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="bg-blue-600 px-4 py-2 text-white border border-blue-600 rounded-lg mt-2 hover:bg-white hover:text-blue-600"> Gửi bình luận</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-span-1">
+                            <div class="w-full text-base">
+                                <div class="w-full product_info">
+                                    <h2 class="font-bold text-xl border-b border-gray-300 pb-2">Thông số kỹ thuật</h2>
+                                    <div class="mt-4 w-full">
+                                        <table class="datasheet-table">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="bg-blue-100">
+                                                <td>1</td>
+                                                <td>Bo mạch chủ</td>
+                                                <td>Gigabyte Z690 Aorus Pro DDR4 Wifi 6E</td>
+                                            </tr>
+                                            <tr class="">
+                                                <td>2</td>
+                                                <td>CPU</td>
+                                                <td>Intel Core i9 12900K / 3.2GHz Turbo 5.2GHz / 16 Nhân 24 Luồng</td>
+                                            </tr>
+                                            <tr class="bg-blue-100">
+                                                <td>3</td>
+                                                <td>RAM</td>
+                                                <td>TeamGroup T-Force Vulcan Z Gaming 32GB (2 x 16GB) DDR4 3200MHz</td>
+                                            </tr>
+                                            <tr class="">
+                                                <td>4</td>
+                                                <td>SSD</td>
+                                                <td>MSI Spatium M450 500GB M.2 PCIe NVMe Gen 4.0</td>
+                                            </tr>
+                                            <tr class="bg-blue-100">
+                                                <td>5</td>
+                                                <td>VGA-Card đồ họa</td>
+                                                <td>ASUS RTX 4060 Ti OC Edition 16GB GDDR6 3FAN</td>
+                                            </tr>
+                                            <tr class="">
+                                                <td>6</td>
+                                                <td>Tản nhiệt</td>
+                                                <td>Tản nhiệt nước AIO Deepcool LT720</td>
+                                            </tr>
+                                            <tr class="bg-blue-100">
+                                                <td>7</td>
+                                                <td>Nguồn</td>
+                                                <td>MSI MAG A750BN PCIE5 750W 80 Plus Bronze</td>
+                                            </tr>
+                                            <tr class="">
+                                                <td>8</td>
+                                                <td>Vỏ</td>
+                                                <td>Xigmatek NYX AIR II 3F ( 3 FAN RGB )</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+@endsection
+@section('scripts')
+    <script>
+        function addItemToCart(productId, isBuyNow = false){
+            // convert productId to php variable to push route() function
+            let url = "https://#/cart/add/:id";
+            url = url.replace(':id', productId);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                    turnOnSuccessMessage('Đã thêm sản phẩm vào giỏ hàng');
+                    document.getElementById('cart-number-quantity').innerText = response.cart_total;
+                    if (isBuyNow) window.location.href = "https://#/cart";
+                }
+            });
+        }
+    </script>
 @endsection
