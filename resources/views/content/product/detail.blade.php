@@ -98,13 +98,19 @@
                                                 @if($product->discount_type == \App\Models\Product::DISCOUNT_VND)
                                                     <p>{{number_format($product->price - $product->discount_value,0, ',', '.')}} VNĐ</p>
                                                     <p class="bg-red-600 font-bold text-white text-xs py-0 md:py-1 px-1 md:px-4 rounded">
-                                                        Sale {{round($product->discount_value/$product->price)}} %
+                                                        @php
+                                                            $sale = ($product->discount_value/$product->price)*100;
+                                                        @endphp
+                                                        Sale {{round($sale)}} %
+
                                                     </p>
-                                                @endif
-                                                <p>{{number_format($product->price*(1-$product->discount_value*0.01),0, ',', '.')}} VNĐ</p>
+                                                @else
+                                                    <p>{{number_format($product->price*(1-$product->discount_value*0.01),0, ',', '.')}} VNĐ</p>
                                                     <p class="bg-red-600 font-bold text-white text-xs py-0 md:py-1 px-1 md:px-4 rounded">
                                                         Sale {{round($product->discount_value)}} %
                                                     </p>
+                                                @endif
+
                                             </div>
                                         @else
                                             <div class="flex justify-start items-center gap-2">
