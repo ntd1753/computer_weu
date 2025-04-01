@@ -135,14 +135,14 @@
                                             </button>
                                         </div>
                                         <div class="col-span-2">
-                                            <button class="bg-[#FF8125] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart(1478)">
+                                            <button class="bg-[#FF8125] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart({{$product->id}},false,true)">
                                                 <p class="font-bold text-base md:text-lg">THÊM VÀO GIỎ HÀNG</p>
                                                 <p class="text-sm mt-[-5px]">Để chọn tiếp</p>
                                             </button>
                                         </div>
                                     </div>
                                     <div class="md:mt-4">
-                                        <button class="bg-[#FA5252] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart(1478,true)">
+                                        <button class="bg-[#FA5252] rounded-xl py-2 md:py-4 w-full text-white" onclick="addItemToCart({{$product->id}},true,true)">
                                             <p class="font-bold text-lg md:text-2xl">MUA NGAY</p>
                                             <p class="text-sm mt-[-5px]">Giao hàng tận nơi nhanh chóng</p>
                                         </button>
@@ -231,52 +231,7 @@
                                 <div class="w-full product_info">
                                     <h2 class="font-bold text-xl border-b border-gray-300 pb-2">Thông số kỹ thuật</h2>
                                     <div class="mt-4 w-full">
-                                        <table class="datasheet-table">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="bg-blue-100">
-                                                <td>1</td>
-                                                <td>Bo mạch chủ</td>
-                                                <td>Gigabyte Z690 Aorus Pro DDR4 Wifi 6E</td>
-                                            </tr>
-                                            <tr class="">
-                                                <td>2</td>
-                                                <td>CPU</td>
-                                                <td>Intel Core i9 12900K / 3.2GHz Turbo 5.2GHz / 16 Nhân 24 Luồng</td>
-                                            </tr>
-                                            <tr class="bg-blue-100">
-                                                <td>3</td>
-                                                <td>RAM</td>
-                                                <td>TeamGroup T-Force Vulcan Z Gaming 32GB (2 x 16GB) DDR4 3200MHz</td>
-                                            </tr>
-                                            <tr class="">
-                                                <td>4</td>
-                                                <td>SSD</td>
-                                                <td>MSI Spatium M450 500GB M.2 PCIe NVMe Gen 4.0</td>
-                                            </tr>
-                                            <tr class="bg-blue-100">
-                                                <td>5</td>
-                                                <td>VGA-Card đồ họa</td>
-                                                <td>ASUS RTX 4060 Ti OC Edition 16GB GDDR6 3FAN</td>
-                                            </tr>
-                                            <tr class="">
-                                                <td>6</td>
-                                                <td>Tản nhiệt</td>
-                                                <td>Tản nhiệt nước AIO Deepcool LT720</td>
-                                            </tr>
-                                            <tr class="bg-blue-100">
-                                                <td>7</td>
-                                                <td>Nguồn</td>
-                                                <td>MSI MAG A750BN PCIE5 750W 80 Plus Bronze</td>
-                                            </tr>
-                                            <tr class="">
-                                                <td>8</td>
-                                                <td>Vỏ</td>
-                                                <td>Xigmatek NYX AIR II 3F ( 3 FAN RGB )</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        {!! $product->detail->data_sheet !!}
                                     </div>
                                 </div>
                             </div>
@@ -289,21 +244,5 @@
 
 @endsection
 @section('scripts')
-    <script>
-        function addItemToCart(productId, isBuyNow = false){
-            // convert productId to php variable to push route() function
-            let url = "https://#/cart/add/:id";
-            url = url.replace(':id', productId);
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (response) {
-                    console.log(response);
-                    turnOnSuccessMessage('Đã thêm sản phẩm vào giỏ hàng');
-                    document.getElementById('cart-number-quantity').innerText = response.cart_total;
-                    if (isBuyNow) window.location.href = "https://#/cart";
-                }
-            });
-        }
-    </script>
+
 @endsection

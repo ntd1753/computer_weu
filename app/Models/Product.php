@@ -47,7 +47,7 @@ class Product extends Model
     // A product belongs to a detail
     public function detail()
     {
-        if ($this->type === 'PC') {
+        if ($this->type === self::TYPE_PC) {
             return $this->belongsTo(LaptopAndPrebuiltPc::class, 'detail_id')
                 ->where('product_type', LaptopAndPrebuiltPc::TYPE_PC);
         } elseif ($this->type === 'ACCESSORY') {

@@ -21,7 +21,6 @@
                     let beginRowProduct = `<div class="container mx-auto xl:px-36 text-lg mt-4 mb-2 md:mt-8 md:mb-4">
                             <div class="bg-white px-2 py-6 md:p-6 rounded-lg shadow-xl">`;
                     let endRowProduct = `</div></div></div></div>`;
-                    console.log(data);
                     $.each(data, function (index, data){
                         if (data.products.length > 0) {
                             let html = '';
@@ -45,7 +44,6 @@
                                         hover:bg-white hover:text-[#2c3e50]" onclick="addItemToCart(${product.id})">
                                             <i class="fa-solid fa-cart-shopping"></i>
                                         </button>`;
-
                                 let discount = '';
                                 let priceHtml = `<h5>${formatCurrency(product.price)} VND</h5>`;
                                 let PriceAfterDiscount = product.price;
@@ -105,7 +103,6 @@
                             $('#product-content').append(html);
 
                         }
-
                     });
                 }
             });

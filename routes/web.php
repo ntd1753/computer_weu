@@ -22,8 +22,15 @@ Route::get('/', function () {
 Route::prefix('product')->group(function(){
         Route::get('/{slug}', [ProductController::class,'detail'])->name('product.detail');
 });
-
-
+Route::prefix('cart')->group(function(){
+    Route::get('/', [\App\Http\Controllers\CartController::class,'showCart'])->name('cart.index');
+    Route::post('/add', [\App\Http\Controllers\CartController::class,'addToCart'])->name('cart.add');
+    Route::post('/remove', [\App\Http\Controllers\CartController::class,'removeFromCart'])->name('cart.remove');
+});
+Route::prefix('order')->group(function(){
+    Route::get('/', [\App\Http\Controllers\OrderController::class,'index'])->name('order.index');
+    Route::post('/place', [\App\Http\Controllers\OrderController::class,'placeOrder'])->name('order.place');
+});
 Route::get('/register',[RegisterController::class,'showRegistrationForm'])->name("auth.register");
 Route::post('/register/store',[RegisterController::class,'storeUserAccount'])->name("auth.register.store");
 Route::post('/login/store',[LoginController::class,'Login'])->name("auth.login.store");

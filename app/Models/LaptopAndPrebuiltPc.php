@@ -22,6 +22,7 @@ class LaptopAndPrebuiltPc extends Model
         'cpu_fan',
         'hdd_size',
         'ssd_size',
+        'data'
     ];
     const TYPE_LAPTOP = 'LAPTOP';
     const TYPE_PC = 'PC';

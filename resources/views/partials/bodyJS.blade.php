@@ -43,4 +43,26 @@
         });
 
     });
+    function addItemToCart(productId, isBuyNow = false, hasQuantity = false) {
+        let quantity = 1;
+        if(hasQuantity) {
+            quantity = document.getElementById('quantity-input').value;
+            if (quantity <= 0) {
+                return;
+            }
+        }
+        $.ajax({
+            url: "{{ route('cart.add') }}",
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                product_id: productId,
+                quantity: quantity,
+            },
+            success: function (response) {
+                document.getElementById('cart-number-quantity').innerText = response.cart_total;
+                if (isBuyNow) window.location.href = "{{route('cart.index')}}";
+            }
+        });
+    }
 </script>

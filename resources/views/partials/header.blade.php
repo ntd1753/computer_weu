@@ -123,14 +123,17 @@
                             </div>
                         </div>
                         <div class="relative">
-                            <a href="#">
+                            <a href="{{route('cart.index')}}">
                                 <button type="button" class="rounded-full text-blue-600 bg-white w-8 h-8 md:w-10 md:h-10"><i
                                         class="fa-solid fa-cart-shopping text-lg"></i>
                                 </button>
                                 <button id="cart-number-quantity" type="button"
                                         class="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 mr-[-9px] md:mr-0 mt-[-6px]">
-
-                                    0
+                                    @auth()
+                                       {{ Auth::user()->carts->count()}}
+                                    @else
+                                        {{session('cart') ? count(session('cart')) : 0}}
+                                    @endauth
                                 </button>
                             </a>
                         </div>
